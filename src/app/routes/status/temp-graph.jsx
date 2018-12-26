@@ -1,16 +1,15 @@
 import React from 'react'
-import { ScaleSVG } from '@vx/responsive'
-import { Group } from '@vx/group'
+import { ScaleSVG, withParentSize } from '@vx/responsive'
 import { LinePath } from '@vx/shape'
 import { scaleTime, scaleLinear } from '@vx/scale'
 import { extent, max } from 'd3-array'
 
-const x = d => d.time
-
-export default ({ width, height, data }) => {
+const TempGraph = ({
+  parentWidth, height, data, ...props
+}) => {
   const xScale = scaleTime({
-    range: [0, width],
-    domain: extent(data, x),
+    range: [0, parentWidth],
+    domain: extent(data, d => d.time),
   })
   const yScale = scaleLinear({
     range: [height, 0],
@@ -18,11 +17,11 @@ export default ({ width, height, data }) => {
   })
 
   return (
-    <svg width={width} height={height}>
+    <svg width={parentWidth} height={height}>
       <LinePath
         className="text-red"
         data={data}
-        x={d => xScale(x(d))}
+        x={d => xScale(d.time)}
         y={d => yScale(d.tool0.target)}
         stroke="currentColor"
         strokeDasharray="3,2"
@@ -31,7 +30,7 @@ export default ({ width, height, data }) => {
       <LinePath
         className="text-red"
         data={data}
-        x={d => xScale(x(d))}
+        x={d => xScale(d.time)}
         y={d => yScale(d.tool0.actual)}
         stroke="currentColor"
         strokeWidth={2}
@@ -40,7 +39,7 @@ export default ({ width, height, data }) => {
       <LinePath
         className="text-blue"
         data={data}
-        x={d => xScale(x(d))}
+        x={d => xScale(d.time)}
         y={d => yScale(d.bed.target)}
         stroke="currentColor"
         strokeDasharray="3,2"
@@ -49,7 +48,7 @@ export default ({ width, height, data }) => {
       <LinePath
         className="text-blue"
         data={data}
-        x={d => xScale(x(d))}
+        x={d => xScale(d.time)}
         y={d => yScale(d.bed.actual)}
         stroke="currentColor"
         strokeWidth={2}
@@ -57,3 +56,5 @@ export default ({ width, height, data }) => {
     </svg>
   )
 }
+
+export default withParentSize(TempGraph)

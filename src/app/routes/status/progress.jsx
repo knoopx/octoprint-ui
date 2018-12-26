@@ -26,7 +26,7 @@ const Arc = ({
   )
 }
 
-const Counter = observer(({ percent, strokeWidth, size }) => (
+const Progress = observer(({ percent, strokeWidth, size }) => (
   <svg width={size} height={size}>
     <Arc
       size={size}
@@ -51,4 +51,4 @@ const Counter = observer(({ percent, strokeWidth, size }) => (
   </svg>
 ))
 
-export default Counter
+export default Progress

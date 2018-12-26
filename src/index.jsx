@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'mobx-react'
 import { onSnapshot, getSnapshot, applySnapshot } from 'mobx-state-tree'
 import { debounce } from 'lodash'
+import { Route, BrowserRouter, Link } from 'react-router-dom'
 
 import App from './app'
 import Store from './store'
@@ -18,7 +19,9 @@ const store = Store.create(
 function render() {
   ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>,
     document.querySelector('#root'),
   )

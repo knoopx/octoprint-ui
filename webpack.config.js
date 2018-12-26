@@ -1,14 +1,15 @@
 const path = require('path')
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const { productName, dependencies } = require('./package.json')
+const { productName } = require('./package.json')
+
+const isDevelopment = process.env.NODE_ENV === 'development'
 
 module.exports = {
-  mode: process.env.NODE_ENV,
+  mode: isDevelopment ? 'development' : 'production',
+  devtool: isDevelopment ? 'cheap-module-source-map' : false,
   entry: ['./src/index.jsx'],
   plugins: [
-    new webpack.ExternalsPlugin('commonjs', Object.keys(dependencies)),
     new ExtractTextPlugin('renderer.css'),
     new HtmlWebpackPlugin({
       title: productName,

@@ -38,6 +38,7 @@ export default types
           self.setIsConnected(true)
           if (data.current.temps) {
             self.temps.push(...data.current.temps)
+            self.temps.splice(0, self.temps.length - 360)
           }
         }
       }
