@@ -1,0 +1,31 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      { "loose": true, "modules": false, "useBuiltIns": "entry" }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "autobind-class-methods",
+    "closure-elimination",
+    "@knoopx/jsx-classnames",
+    "@babel/plugin-syntax-dynamic-import",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    "@babel/plugin-proposal-export-namespace-from",
+    "@babel/plugin-proposal-export-default-from"
+  ],
+  "env": {
+    "development": {
+      "presets": [["@babel/preset-react", { "development": true }]],
+      "plugins": ["react-hot-loader/babel"]
+    },
+    "test": {
+      "plugins": ["transform-react-remove-prop-types", "istanbul"]
+    },
+    "production": {
+      "plugins": ["transform-react-remove-prop-types"]
+    }
+  }
+}
